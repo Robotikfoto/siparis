@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipariş Formu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen py-6 px-4 font-sans text-gray-900">
+
+    <div class="max-w-xl mx-auto space-y-4">
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm text-center border-b-4 border-green-500">
+            <h1 class="text-2xl font-black uppercase tracking-tight">Sipariş Formu</h1>
+            <div id="canli-tarih" class="text-xs font-bold text-green-600 mt-2 bg-green-50 inline-block px-3 py-1 rounded-full"></div>
+        </div>
+
+        <form action="https://formspree.io/f/xqeezalw" method="POST" class="space-y-4">
+            
+            <input type="hidden" name="Siparis_Tarihi" id="gizli-tarih">
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="font-bold text-gray-700 mb-4 flex items-center text-sm uppercase">
+                    <i class="fas fa-shopping-basket mr-2 text-green-500"></i> Sipariş Listesi
+                </h3>
+                
+                <div id="urun-listesi" class="space-y-3">
+                    <div class="urun-item flex items-end gap-2 p-3 bg-gray-50 rounded-xl border border-gray-200">
+                        <div class="flex-1">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase">Ürün Adı / Kodu</label>
+                            <input type="text" name="Urun_1" required placeholder="Ürünü yazın" class="w-full mt-1 p-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none bg-white h-11">
+                        </div>
+                        <div class="w-20">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase text-center">Adet</label>
+                            <input type="number" name="Adet_1" min="1" value="1" required class="w-full mt-1 p-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none text-center font-bold bg-white h-11">
+                        </div>
+                        <div class="w-4"></div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="yeniUrunSatiriEkle()" class="w-full mt-4 py-3 border-2 border-dashed border-gray-300 text-gray-500 rounded-xl font-bold hover:bg-gray-50 transition-all text-xs">
+                    <i class="fas fa-plus mr-1"></i> BAŞKA ÜRÜN EKLE
+                </button>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 space-y-4">
+                <h3 class="font-bold text-gray-700 mb-2 flex items-center text-sm uppercase border-b pb-2">
+                    <i class="fas fa-user-edit mr-2 text-green-500"></i> Bilgileriniz
+                </h3>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Adınız Soyadınız *</label>
+                    <input type="text" name="Musteri_Ad_Soyad" required placeholder="Adınız Soyadınız" 
+                           class="w-full p-3 border border-gray-300 rounded-xl outline-none focus:border-green-500 bg-white h-12 shadow-sm">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Telefon (İsteğe Bağlı)</label>
+                    <input type="tel" name="Musteri_Telefon" placeholder="05XX XXX XX XX" 
+                           class="w-full p-3 border border-gray-300 rounded-xl outline-none focus:border-green-500 bg-white h-12 shadow-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Sipariş Notu / Ek İstek</label>
+                    <textarea name="Siparis_Notu" rows="3" placeholder="Renk, beden vb. notlarınız..." 
+                              class="w-full p-3 border border-gray-300 rounded-xl outline-none focus:border-green-500 bg-white shadow-sm"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-green-500 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-green-600 active:scale-95 transition-all text-lg uppercase">
+                    Siparişi Tamamla <i class="fas fa-check-circle ml-1"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Tarihi hem görünür hem gizli alana yazar
+        window.onload = function() {
+            const simdi = new Date();
+            const tarihString = simdi.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            document.getElementById('canli-tarih').innerText = "Tarih: " + tarihString;
+            document.getElementById('gizli-tarih').value = tarihString;
+        };
+
+        let sayac = 1;
+        function yeniUrunSatiriEkle() {
+            sayac++;
+            const liste = document.getElementById('urun-listesi');
+            const yeniSatir = document.createElement('div');
+            yeniSatir.className = "urun-item flex items-end gap-2 p-3 bg-gray-50 rounded-xl border border-gray-200 mt-2";
+            yeniSatir.innerHTML = `
+                <div class="flex-1">
+                    <label class="block text-[10px] font-bold text-green-600 uppercase">Ürün ${sayac}</label>
+                    <input type="text" name="Urun_${sayac}" required placeholder="Ürün adı" class="w-full mt-1 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-green-500 bg-white h-11">
+                </div>
+                <div class="w-20">
+                    <label class="block text-[10px] font-bold text-green-600 uppercase text-center">Adet</label>
+                    <input type="number" name="Adet_${sayac}" min="1" value="1" required class="w-full mt-1 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-green-500 text-center font-bold bg-white h-11">
+                </div>
+                <button type="button" onclick="this.parentElement.remove()" class="w-8 h-11 flex items-center justify-center text-red-500 hover:text-red-700">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            `;
+            liste.appendChild(yeniSatir);
+        }
+    </script>
+</body>
+</html>
