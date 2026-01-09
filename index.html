@@ -11,7 +11,7 @@
 
     <div class="max-w-xl mx-auto space-y-4">
         <div class="bg-white rounded-2xl p-6 shadow-sm text-center border-b-4 border-green-500">
-            <h1 class="text-2xl font-black uppercase tracking-tight">Sipariş Formu</h1>
+            <h1 class="text-2xl font-black uppercase tracking-tight">Hızlı Sipariş</h1>
             <div id="canli-tarih" class="text-xs font-bold text-green-600 mt-2 bg-green-50 inline-block px-3 py-1 rounded-full"></div>
         </div>
 
@@ -26,32 +26,23 @@
                     <div class="urun-item flex items-end gap-2 p-3 bg-gray-50 rounded-xl border border-gray-200">
                         <div class="flex-1">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase">Ürün Adı</label>
-                            <input type="text" name="Urun_1" required placeholder="Ürünü yazın" class="w-full mt-1 p-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none bg-white h-11">
+                            <input type="text" name="Urun_1" required placeholder="Ürünü yazın" class="w-full mt-1 p-2 border rounded-lg outline-none bg-white h-11">
                         </div>
                         <div class="w-20">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase text-center">Adet</label>
-                            <input type="number" name="Adet_1" min="1" value="1" required class="w-full mt-1 p-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none text-center font-bold bg-white h-11">
+                            <input type="number" name="Adet_1" min="1" value="1" required class="w-full mt-1 p-2 border rounded-lg outline-none text-center font-bold bg-white h-11">
                         </div>
-                        <div class="w-4"></div>
                     </div>
                 </div>
-                <button type="button" onclick="yeniUrunSatiriEkle()" class="w-full mt-4 py-3 border-2 border-dashed border-gray-300 text-gray-500 rounded-xl font-bold hover:bg-gray-50 transition-all text-xs">+ BAŞKA ÜRÜN EKLE</button>
+                <button type="button" onclick="yeniUrunSatiriEkle()" class="w-full mt-4 py-3 border-2 border-dashed border-gray-300 text-gray-500 rounded-xl font-bold hover:bg-gray-50 text-xs">+ BAŞKA ÜRÜN EKLE</button>
             </div>
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Ad Soyad *</label>
-                    <input type="text" name="Musteri_Ad_Soyad" required id="ad_soyad" placeholder="Adınız Soyadınız" class="w-full p-3 border border-gray-300 rounded-xl outline-none focus:border-green-500 bg-white h-12 shadow-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Telefon (İsteğe Bağlı)</label>
-                    <input type="tel" name="Musteri_Telefon" id="telefon" placeholder="05XX XXX XX XX" class="w-full p-3 border border-gray-300 rounded-xl outline-none focus:border-green-500 bg-white h-12 shadow-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Sipariş Notu</label>
-                    <textarea name="Siparis_Notu" id="siparis_notu" rows="3" placeholder="Notunuz..." class="w-full p-3 border border-gray-300 rounded-xl outline-none focus:border-green-500 bg-white shadow-sm"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-green-500 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-green-600 active:scale-95 transition-all text-lg uppercase">
+                <input type="text" name="Musteri_Ad_Soyad" id="ad_soyad" required placeholder="Adınız Soyadınız" class="w-full p-3 border border-gray-300 rounded-xl outline-none h-12">
+                <input type="tel" name="Musteri_Telefon" id="telefon" placeholder="Telefonunuz (İsteğe bağlı)" class="w-full p-3 border border-gray-300 rounded-xl outline-none h-12">
+                <textarea name="Siparis_Notu" id="siparis_notu" rows="3" placeholder="Sipariş notunuz..." class="w-full p-3 border border-gray-300 rounded-xl outline-none"></textarea>
+                
+                <button type="submit" class="w-full bg-green-600 text-white font-black py-4 rounded-2xl shadow-lg text-lg uppercase">
                     SİPARİŞİ TAMAMLA
                 </button>
             </div>
@@ -61,45 +52,43 @@
     <script>
         window.onload = function() {
             const simdi = new Date();
-            const tarihString = simdi.toLocaleString('tr-TR');
-            document.getElementById('canli-tarih').innerText = "Tarih: " + tarihString;
-            document.getElementById('gizli-tarih').value = tarihString;
+            document.getElementById('canli-tarih').innerText = "Tarih: " + simdi.toLocaleString('tr-TR');
+            document.getElementById('gizli-tarih').value = simdi.toLocaleString('tr-TR');
         };
 
         let sayac = 1;
         function yeniUrunSatiriEkle() {
             sayac++;
             const liste = document.getElementById('urun-listesi');
-            const yeniSatir = document.createElement('div');
-            yeniSatir.className = "urun-item flex items-end gap-2 p-3 bg-gray-50 rounded-xl border border-gray-200 mt-2";
-            yeniSatir.innerHTML = `<div class="flex-1"><label class="block text-[10px] font-bold text-green-600 uppercase">Ürün ${sayac}</label><input type="text" name="Urun_${sayac}" required class="w-full mt-1 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-green-500 bg-white h-11"></div><div class="w-20"><label class="block text-[10px] font-bold text-green-600 uppercase text-center">Adet</label><input type="number" name="Adet_${sayac}" min="1" value="1" required class="w-full mt-1 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-green-500 text-center font-bold bg-white h-11"></div><button type="button" onclick="this.parentElement.remove()" class="w-8 h-11 text-red-500"><i class="fas fa-trash-alt"></i></button>`;
-            liste.appendChild(yeniSatir);
+            const div = document.createElement('div');
+            div.className = "urun-item flex items-end gap-2 p-3 bg-gray-50 rounded-xl border border-gray-200 mt-2";
+            div.innerHTML = `<div class="flex-1"><input type="text" name="Urun_${sayac}" required placeholder="Ürün ${sayac}" class="w-full p-2 border rounded-lg h-11"></div><div class="w-20"><input type="number" name="Adet_${sayac}" min="1" value="1" required class="w-full p-2 border rounded-lg text-center font-bold h-11"></div><button type="button" onclick="this.parentElement.remove()" class="text-red-500 p-2"><i class="fas fa-trash-alt"></i></button>`;
+            liste.appendChild(div);
         }
 
-        // WHATSAPP GÖNDERME FONKSİYONU
         document.getElementById('siparisForm').addEventListener('submit', function(e) {
-            const tel = "905616162419"; // BURAYA KENDİ NUMARANI YAZ (Örn: 905321234567)
+            // NUMARANI BURAYA SADECE RAKAM OLACAK ŞEKİLDE YAZ (Örn: "905321234567")
+            const tel = "905325668213"; 
+            
             const ad = document.getElementById('ad_soyad').value;
-            const wpTelefon = document.getElementById('telefon').value;
-            const not = document.getElementById('siparis_notu').value;
+            const wpTelefon = document.getElementById('telefon').value || "Belirtilmedi";
+            const not = document.getElementById('siparis_notu').value || "Yok";
             
             let urunlerMesaj = "";
-            const urunInputlari = document.querySelectorAll('input[name^="Urun_"]');
-            const adetInputlari = document.querySelectorAll('input[name^="Adet_"]');
-            
-            urunInputlari.forEach((input, index) => {
-                if (input.value) {
-                    urunlerMesaj += `* ${input.value} (${adetInputlari[index].value} Adet)\n`;
-                }
+            const urunItems = document.querySelectorAll('.urun-item');
+            urunItems.forEach((item) => {
+                const u = item.querySelector('input[type="text"]').value;
+                const a = item.querySelector('input[type="number"]').value;
+                if(u) urunlerMesaj += `• ${u} (${a} Adet)\n`;
             });
 
-            const taslak = `*YENİ SİPARİŞ*\n\n*İsim:* ${ad}\n*Tel:* ${wpTelefon}\n\n*Ürünler:*\n${urunlerMesaj}\n*Not:* ${not}`;
-            const wpLink = `https://wa.me/${tel}?text=${encodeURIComponent(taslak)}`;
+            const mesaj = `*YENİ SİPARİŞ*\n\n*İsim:* ${ad}\n*Tel:* ${wpTelefon}\n\n*Ürünler:*\n${urunlerMesaj}\n*Not:* ${not}`;
+            const wpLink = `https://api.whatsapp.com/send?phone=${tel}&text=${encodeURIComponent(mesaj)}`;
             
-            // Formu Formspree'ye gönderirken aynı zamanda WhatsApp'a yönlendir
+            // Formu gönderdikten sonra WhatsApp'a gönderir
             setTimeout(() => {
                 window.location.href = wpLink;
-            }, 800);
+            }, 500);
         });
     </script>
 </body>
