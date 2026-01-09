@@ -15,7 +15,7 @@
             <div id="canli-tarih" class="text-xs font-bold text-green-600 mt-2 bg-green-50 inline-block px-3 py-1 rounded-full"></div>
         </div>
 
-        <form id="siparisForm" action="https://formspree.io/f/xqeezalw" method="POST" class="space-y-4">
+        <form id="siparisForm" action="https://script.google.com/macros/s/AKfycbwiAoyckiQbWKkN8JRFgTB0_fOkG5HAG1m29KudQpJwe5OlSQh9V-abWRU71OaT9sy-/exec" method="POST" class="space-y-4">
             <input type="hidden" name="Siparis_Tarihi" id="gizli-tarih">
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
@@ -67,7 +67,7 @@
         }
 
         document.getElementById('siparisForm').addEventListener('submit', function(e) {
-            // NUMARANI BURAYA SADECE RAKAM OLACAK ŞEKİLDE YAZ (Örn: "905321234567")
+            // WHATSAPP NUMARANI BURAYA YAZ (Örn: "905321234567")
             const tel = "905325668213"; 
             
             const ad = document.getElementById('ad_soyad').value;
@@ -85,7 +85,7 @@
             const mesaj = `*YENİ SİPARİŞ*\n\n*İsim:* ${ad}\n*Tel:* ${wpTelefon}\n\n*Ürünler:*\n${urunlerMesaj}\n*Not:* ${not}`;
             const wpLink = `https://api.whatsapp.com/send?phone=${tel}&text=${encodeURIComponent(mesaj)}`;
             
-            // Formu gönderdikten sonra WhatsApp'a gönderir
+            // Verilerin Google Sheets'e gitmesi için küçük bir bekletme ve yönlendirme
             setTimeout(() => {
                 window.location.href = wpLink;
             }, 500);
